@@ -13,10 +13,10 @@ anidadas) y los exporta a CSV.
 
 ## Cómo correrlo
 
-\`\`\`bash
+```bash
 pip install -r requirements.txt
 python main.py
-\`\`\`
+```
 
 ## Tecnologías
 - Python
