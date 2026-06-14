@@ -1,9 +1,12 @@
-from etl import get_users, get_posts, transform_data, load_csv
+from etl import get_users, get_posts, transform_users, transform_posts, load_csv
 
 def main():
     users_df = get_users()
     posts_df = get_posts()
-    final_df = transform_data(df)
+
+    users_df = transform_users(users_df)
+    posts_df = transform_posts(posts_df)
+
     load_csv(final_df)
 
 if __name__ == "__main__":
