@@ -8,7 +8,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def get_data():
+def get_users():
     url = "https://jsonplaceholder.typicode.com/users"
     logger.info("Extrayendo datos desde %s", url)
 
@@ -20,9 +20,25 @@ def get_data():
         raise
 
     data = response.json()
-    df = pd.DataFrame(data)
-    logger.info("Se obtuvieron %d registros", len(df))
-    return df
+    users_df = pd.DataFrame(data)
+    breakpoint()
+    logger.info("Se obtuvieron %d registros", len(users_df))
+    return users_df
+
+def get_posts():
+    url = "https://jsonplaceholder.typicode.com/posts"
+    logger.info("Extrayendo datos desde %s", url)
+
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        logger.error("Error al obtener datos: %s", e)
+
+    data = response.json()
+    posts_df = pd.DataFrame(data)
+    logger.info("Se obtuvieron %d registros", len(posts_df))
+    return posts_df
 
 def transform_data(df):
 
