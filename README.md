@@ -1,11 +1,13 @@
-# ETL Pipeline - JSONPlaceholder Users & Posts
+# ETL Pipeline - Users & Posts (JSONPlaceholder + FastAPI Mock)
 
-Pipeline simple de ETL que extrae datos usando archivos JSON como mock
-de una API, los transforma con pandas (limpieza de duplicados y nulos,
-normalización de columnas anidadas) y los exporta a una base de datos SQLite.
+Pipeline de ETL en Python que extrae datos de una API REST (FastAPI local)
+con fallback a archivos JSON mock, los transforma usando pandas y los carga
+en una base de datos SQLite para análisis posterior mediante SQL.
 
 ## Flujo
-1. **Extract**: obtiene datos de usuarios y posteos desde el JSON local
+1. **Extract**:
+    - Obtiene datos desde una API REST local (FastAPI)
+    - Si la API no esta disponible, usa archivos JSON como fallback
 2. **Transform**:
     - users:
         - Aplana columnas anidadas (`address` -> `city`, `company` -> `company_name`)
@@ -13,7 +15,9 @@ normalización de columnas anidadas) y los exporta a una base de datos SQLite.
     - posts:
         - Renombrado de columnas (`userId` -> `user_id`)
         - Eliminación de títulos nulos.
-3. **Load**: inserta los datos en una base de datos SQLite
+3. **Load**:
+    - Inserta los datos en una base de datos SQLite
+    - Crea las tablas `users` y `posts`
 
 ## Base de datos
 
@@ -28,9 +32,13 @@ Relación:
 
 ```bash
 pip install -r requirements.txt
+uvicorn api.server:app --reload
 python main.py
 ```
 
 ## Tecnologías
 - Python
 - pandas
+- FastAPI
+- SQLite
+- requests
