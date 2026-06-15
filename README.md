@@ -1,4 +1,4 @@
-# ETL Pipeline - Users & Posts (JSONPlaceholder + FastAPI Mock)
+# ETL Pipeline - Users & Posts (FastAPI + Local JSON fallback)
 
 Pipeline de ETL en Python que extrae datos de una API REST (FastAPI local)
 con fallback a archivos JSON mock, los transforma usando pandas y los carga
