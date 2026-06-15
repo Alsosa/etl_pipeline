@@ -3,28 +3,15 @@ import sqlite3
 
 logger = logging.getLogger(__name__)
 
-DB_PATH = "data/app.db"
+DB_PATH = "db/app.db"
 
-def load_users(users_df):
+def load_dataframe(df, table_name):
     conn = sqlite3.connect(DB_PATH)
 
-    logger.info("Cargando users en SQLite")
+    logger.info("Cargando tabla %s (%d registros) en SQLite", table_name, len(df))
 
-    users_df.to_sql(
-        "users",
-        conn,
-        if_exists="replace",
-        index=False
-    )
-    conn.close()
-
-def load_posts(posts_df):
-    conn = sqlite3.connect(DB_PATH)
-
-    logger.info("Cargando posts en SQLite")
-
-    posts_df.to_sql(
-        "posts",
+    df.to_sql(
+        table_name,
         conn,
         if_exists="replace",
         index=False
