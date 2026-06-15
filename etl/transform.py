@@ -1,38 +1,6 @@
-import json
 import logging
-import requests
-import pandas as pd
-import sqlite3
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
 logger = logging.getLogger(__name__)
-
-DB_PATH = "data/app.db"
-
-def get_users():
-    url = "https://jsonplaceholder.org/users"
-    logger.info("Extrayendo datos desde %s", url)
-
-    with open("data/users.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    users_df = pd.DataFrame(data)
-    logger.info("Se obtuvieron %d registros", len(users_df))
-    return users_df
-
-def get_posts():
-    url = "https://jsonplaceholder.org/posts"
-    logger.info("Extrayendo datos desde %s", url)
-
-    with open("data/posts.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
-    
-    posts_df = pd.DataFrame(data)
-    logger.info("Se obtuvieron %d registros", len(posts_df))
-    return posts_df
 
 def transform_users(users_df):
 
@@ -77,29 +45,3 @@ def transform_posts(posts_df):
     logger.info("Transformación de posts completada. Registros: %d", len(posts_df))
 
     return posts_df
-
-def load_users(users_df):
-    conn = sqlite3.connect(DB_PATH)
-
-    logger.info("Cargando users en SQLite")
-
-    users_df.to_sql(
-        "users",
-        conn,
-        if_exists="replace",
-        index=False
-    )
-    conn.close()
-
-def load_posts(posts_df):
-    conn = sqlite3.connect(DB_PATH)
-
-    logger.info("Cargando posts en SQLite")
-
-    posts_df.to_sql(
-        "posts",
-        conn,
-        if_exists="replace",
-        index=False
-    )
-    conn.close()
