@@ -1,7 +1,7 @@
 import logging
-from extract import get_users, get_posts
-from transform import transform_users, transform_posts
-from load import load_dataframe
+from etl.extract import get_users, get_posts
+from etl.transform import transform_users, transform_posts
+from etl.load import load_dataframe
 
 logging.basicConfig(
     level=logging.INFO,

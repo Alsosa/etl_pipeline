@@ -3,7 +3,7 @@ import sqlite3
 
 logger = logging.getLogger(__name__)
 
-DB_PATH = "db/app.db"
+DB_PATH = "app.db"
 
 def load_dataframe(df, table_name):
     conn = sqlite3.connect(DB_PATH)
