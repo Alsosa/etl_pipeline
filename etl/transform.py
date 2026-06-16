@@ -32,15 +32,6 @@ def transform_users(users_df):
         index=False
     )
 
-    users_df = users_df.drop_duplicates(
-        subset=["email"],
-        keep="first"
-    )
-
-    users_df = users_df.dropna(
-        subset=["email"]
-    )
-
     # Limpieza
     users_df = users_df.drop_duplicates(subset=["email"], keep="first")
     users_df = users_df.dropna(subset=["email"])
