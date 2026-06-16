@@ -28,42 +28,40 @@ Se crean dos tablas:
 Relación:
 - users.id -> posts.user_id
 
-## Cómo correrlo
+## Cómo ejecutar el proyecto
 
-# 1. Crear entorno virtual
+### 1. Crear entorno virtual
 ```bash
 python -m venv venv
 ```
 
-# 2. Activar entorno virtual
-# Windows:
+### 2. Activar entorno virtual
+**Windows:**
 ```bash
 venv\Scripts\activate
 ```
 
-# Mac / Linux:
+**Mac / Linux:**
 ```bash
 source venv/bin/activate
 ```
 
-# 3. Instalar dependencias
+### 3. Instalar dependencias
 ```bash
 pip install -r requirements.txt
 ```
 
-# Ejecucion de la API
+### Ejecucion de la API
 ```bash
 uvicorn api.server:app --reload
 ```
 
-# La API quedará disponible en:
-```bash
-http://127.0.0.1:8000/users
-http://127.0.0.1:8000/posts
-http://127.0.0.1:8000/docs
-```
+**La API quedará disponible en:**
+- http://127.0.0.1:8000/users
+- http://127.0.0.1:8000/posts
+- http://127.0.0.1:8000/docs
 
-# Ejecucion del ETL
+### Ejecucion del ETL
 ```bash
 python -m etl.main
 ```
