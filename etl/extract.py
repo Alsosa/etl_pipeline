@@ -21,8 +21,11 @@ def get_users():
             response.raise_for_status()
             data = response.json()
             logger.info("Datos obtenidos desde la API")
-        except Exception as e:
-            logger.warning("Fallo API users, usando JSON local: %s", e)
+        except requests.exceptions.RequestException as e:
+            logger.warning(
+                "Fallo API users, usando JSON local: %s",
+                type(e).__name__
+            )
             with open(os.path.join(DATA_PATH, "users.json"), "r", encoding="utf-8") as f:
                 data = json.load(f)
     else:
@@ -44,7 +47,10 @@ def get_posts():
             data = response.json()
             logger.info("Datos obtenidos desde la API")
         except Exception as e:
-            logger.warning("Fallo API posts, usando JSON local: %s", e)
+            logger.warning(
+                "Fallo API posts, usando JSON local: %s",
+                type(e).__name__
+            )
             with open(os.path.join(DATA_PATH, "posts.json"), "r", encoding="utf-8") as f:
                 data = json.load(f)
     else:
