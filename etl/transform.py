@@ -1,4 +1,7 @@
+import os
 import logging
+
+os.makedirs("data_quality", exist_ok=True)
 
 logger = logging.getLogger(__name__)
 
@@ -18,10 +21,25 @@ def transform_users(users_df):
     users_df["company_name"] = users_df["company"].apply(get_company_name)
 
     # Validaciones
-    nulos = users_df["email"].isnull().sum()
-    duplicados = users_df.duplicated(subset=["email"]).sum()
-    logger.info("Emails nulos: %d", nulos)
-    logger.info("Duplicados: %d", duplicados)
+    invalid_users = users_df[
+        users_df["email"].isnull() |
+        users_df.duplicated(subset=["email"], keep=False)]
+
+    logger.info("Usuarios invalidos detectados: %d", len(invalid_users))
+
+    invalid_users.to_csv(
+        "data_quality/invalid_users.csv",
+        index=False
+    )
+
+    users_df = users_df.drop_duplicates(
+        subset=["email"],
+        keep="first"
+    )
+
+    users_df = users_df.dropna(
+        subset=["email"]
+    )
 
     # Limpieza
     users_df = users_df.drop_duplicates(subset=["email"], keep="first")
