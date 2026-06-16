@@ -30,10 +30,42 @@ Relación:
 
 ## Cómo correrlo
 
+# 1. Crear entorno virtual
+```bash
+python -m venv venv
+```
+
+# 2. Activar entorno virtual
+# Windows:
+```bash
+venv\Scripts\activate
+```
+
+# Mac / Linux:
+```bash
+source venv/bin/activate
+```
+
+# 3. Instalar dependencias
 ```bash
 pip install -r requirements.txt
+```
+
+# Ejecucion de la API
+```bash
 uvicorn api.server:app --reload
-python main.py
+```
+
+# La API quedará disponible en:
+```bash
+http://127.0.0.1:8000/users
+http://127.0.0.1:8000/posts
+http://127.0.0.1:8000/docs
+```
+
+# Ejecucion del ETL
+```bash
+python -m etl.main
 ```
 
 ## Tecnologías
